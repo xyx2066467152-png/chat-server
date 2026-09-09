@@ -1,0 +1,22 @@
+# 编译产物（二进制）
+/server
+/client
+/client_arm
+/gui_client_arm
+
+# 日志
+*.log
+
+# 构建目录
+/build/
+/bin/
+
+# 编辑器配置
+/.vscode/
+
+# 草稿 / 临时
+/.scratch/
+
+# 面试复习笔记（个人，不入公开库）
+/INTERVIEW.md
+/PRESENTATION.md

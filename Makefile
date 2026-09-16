@@ -6,16 +6,20 @@ LDFLAGS   = -pthread
 SERVER    = server 
 CLIENT    = client
 ARM_CLIENT = client_arm
+LOAD_CLIENT = load_client
 
 COMMON = src/cJSON.c src/protocol.c
 
-all: $(SERVER) $(CLIENT) $(ARM_CLIENT)
+all: $(SERVER) $(CLIENT) $(ARM_CLIENT) $(LOAD_CLIENT)
 
 $(SERVER): src/server.c src/thread_pool.c $(COMMON)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(SERVER) src/server.c src/thread_pool.c $(COMMON)
 
 $(CLIENT): src/client.c $(COMMON)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(CLIENT) src/client.c $(COMMON)
+
+$(LOAD_CLIENT): src/load_client.c $(COMMON)
+	$(CC) $(CFLAGS) $(LDFLAGS) -std=c99 -o $(LOAD_CLIENT) src/load_client.c $(COMMON)
 
 client_arm: src/client.c $(COMMON)
 	$(ARM_CC) $(CFLAGS) $(LDFLAGS) -o $(ARM_CLIENT) src/client.c $(COMMON)
@@ -40,6 +44,6 @@ gui_client_arm: $(GUI_APP) $(GUI_FONT) $(COMMON)
 	$(ARM_CC) $(CFLAGS) $(LVGL_INC) $(LDFLAGS) -lm -o $(GUI_CLIENT_ARM) $(GUI_APP) $(GUI_FONT) $(COMMON) $(LVGL_SRCS)
 
 clean:
-	rm -f $(SERVER) $(CLIENT) $(ARM_CLIENT) $(GUI_CLIENT) $(GUI_CLIENT_ARM)
+	rm -f $(SERVER) $(CLIENT) $(ARM_CLIENT) $(LOAD_CLIENT) $(GUI_CLIENT) $(GUI_CLIENT_ARM)
 
-.PHONY: all clean client_arm gui_client gui_client_arm
+.PHONY: all clean client_arm load_client gui_client gui_client_arm

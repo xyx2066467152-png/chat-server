@@ -2,6 +2,7 @@
 /server
 /client
 /client_arm
+/load_client
 /gui_client_arm
 
 # 日志
